@@ -1,38 +1,55 @@
 <?php
 
 /**
- * Hello world class
+ * Enterprise Hello World class v2.2
  *
- * Used to display the phrase "Hello World!" in a console.
+ * Provides an enterprise ready, scalable business solution
+ * for displaying the phrase "Hello World!" in a console.
+ *
+ * TL;DW
  *
  * @author Miles
+ * @copyright Miles 2021
  * @license MIT
- * @version 1.2
+ * @version 2.2
  * @see echo
  * @see README
- * @todo Create factory methods
+ * @see LICENSE
+ * @todo Test of OS compatibility
  * @link https://github.com/MilesChou/helloworld
  */
 class HelloWorld
 {
     /**
-     * The default phrase to display in the console
+     * The first phrase
      */
-    public const PHRASE = 'Hello World!';
+    public const PHRASE_HELLO = 'Hello';
 
     /**
-     * The phrase to display in the console
+     * The second phrase
      */
-    private $hello_world;
+    public const PHRASE_WORLD = 'World';
+
+    /**
+     * The first word in our phrase
+     */
+    private $hello;
+
+    /**
+     * The second word in our phrase
+     */
+    private $world;
 
     /**
      * Constructor
      *
-     * @param string $hw The phrase to display in the console
+     * @param string $hello First word to display in the console
+     * @param string $world Second word to display in the console
      */
-    public function __construct(string $hw)
+    public function __construct(string $hello, string $world)
     {
-        $this->hello_world = $hw;
+        $this->hello = $hello;
+        $this->world = $world;
     }
 
     /**
@@ -43,7 +60,49 @@ class HelloWorld
     public function sayPhrase(): void
     {
         // Displays our phrase in a console.
-        echo $this->hello_world;
+        $first = $this->hello;
+        $second = $this->world;
+        echo $first . ' ' . $second;
+    }
+
+    /**
+     * Sets the phrase to use for hello
+     *
+     * @param string $h The first phrase
+     */
+    public function setHello(string $h): void
+    {
+        $this->hello = $h;
+    }
+
+    /**
+     * Gets the phrase to use for hello
+     *
+     * @return string
+     */
+    public function getHello(): string
+    {
+        return $this->hello;
+    }
+
+    /**
+     * Sets the phrase to use for world
+     *
+     * @param string $w The second phrase
+     */
+    public function setWorld(string $w): void
+    {
+        $this->world = $w;
+    }
+
+    /**
+     * Gets the phrase to use for world
+     *
+     * @return string
+     */
+    public function getWorld(): string
+    {
+        return $this->world;
     }
 
     /**
@@ -53,12 +112,16 @@ class HelloWorld
      */
     public static function main()
     {
-        $hw = new self(self::PHRASE);
-
+        // Display the phrase on the command line.
         try {
+            $hw = new self(self::PHRASE_HELLO, self::PHRASE_WORLD);
             $hw->sayPhrase();
+        } catch (LogicException $e) {
+            echo 'This is logic error.';
+        } catch (RuntimeException $e) {
+            echo 'This is runtime error.';
         } catch (Exception $e) {
-            // Do nothing!
+            echo 'This is unknown error.';
         }
     }
 }
